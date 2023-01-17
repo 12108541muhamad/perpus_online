@@ -15,6 +15,13 @@ return new class extends Migration
     {
         Schema::create('wikbooks', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
+            $table->string('writter');
+            $table->string('publisher');
+            $table->string('isbn');
+            $table->string('synopsis');
+            $table->string('cover_book');
+            $table->string('category_name');
             $table->timestamps();
         });
     }

@@ -155,6 +155,11 @@ Miss Selena bersama Av berniat untuk mengajak mereka berkunjung ke klan Matahari
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
+            @if (Session::get('success'))
+          <div class="alert alert-success">
+            {{ Session::get('success' )}}
+          </div>
+          @endif
             <h3>WIKBOOK</h3>
             <p>
               Jl. Raya Wangun <br>

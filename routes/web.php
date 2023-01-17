@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\WikbookController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', [WikbookController::class, 'index'])->name('index'); // route menuju landing page
+Route::get('/login', [WikbookController::class, 'login'])->name('login');
+Route::get('/register', [WikbookController::class, 'register'])->name('register');
+Route::post('/register', [WikbookController::class, 'registerAccount'])->name('register.createAccount');
+Route::post('/login', [WikbookController::class, 'auth'])->name('login.auth');

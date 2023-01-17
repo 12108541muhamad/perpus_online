@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\wikbook;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class WikbookController extends Controller
 {
@@ -16,6 +19,55 @@ class WikbookController extends Controller
     {
         return view('index');
     }
+
+    public function login()
+    {
+        return view('dashboard.login');
+    }
+
+    public function auth(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required|min:4',
+        ],[
+            'email.exists' => "This email doesn't exists"
+        ]);
+
+        $user = $request->only('email', 'password');
+        if (Auth::attempt($user)) {
+            return redirect()->route('index');
+        }else{
+            return redirect('/login')->with('fail', 'Gagal login, periksa dan coba lagi!');
+        }
+    }
+
+    public function register()
+    {
+        return view('dashboard.register');
+    }
+
+    public function registerAccount(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email:dns',
+            'name' => 'required',
+            'password' => 'required|min:4',
+            'name' => 'required|min:3',
+            'address' => 'required',
+            'no_hp' => 'required|min:11',
+        ]);
+
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'no_hp' => $request->no_hp,
+            'address' => $request->address,
+        ]);
+        return redirect('/login')->with('success', 'Berhasil menambahkan akun! silahkan login');
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -35,7 +87,7 @@ class WikbookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 
     }
 
     /**
