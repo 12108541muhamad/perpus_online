@@ -19,6 +19,11 @@ class WikbookController extends Controller
     {
         return view('index');
     }
+    public function dashboard()
+    {
+        $users = User::all();
+        return view('dashboard.index', compact('users'));
+    }
 
     public function login()
     {
@@ -36,10 +41,9 @@ class WikbookController extends Controller
 
         $user = $request->only('email', 'password');
         if (Auth::attempt($user)) {
-            return redirect()->route('index');
-        }else{
-            return redirect('/login')->with('fail', 'Gagal login, periksa dan coba lagi!');
+            return redirect()->route('dashboard');
         }
+        return redirect('/login')->with('fail', 'Gagal login, periksa dan coba lagi!');
     }
 
     public function register()
@@ -66,6 +70,12 @@ class WikbookController extends Controller
             'address' => $request->address,
         ]);
         return redirect('/login')->with('success', 'Berhasil menambahkan akun! silahkan login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return view('dashboard.login');
     }
 
 

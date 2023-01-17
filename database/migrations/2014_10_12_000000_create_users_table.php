@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('password')->unique();
             $table->string('address');
             $table->string('no_hp');
+            $table->enum('role', ['user', 'admin']);
             $table->timestamps();
         });
     }

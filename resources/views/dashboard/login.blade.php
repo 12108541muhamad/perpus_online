@@ -1,5 +1,41 @@
-@extends('layout')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>WikBook</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{{asset('https://cdn-icons-png.flaticon.com/512/3145/3145765.png')}}" rel="icon">
+  <link href="{{asset('assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Jost:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="{{asset('assets/vendor/aos/aos.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/vendor/bootstrap-icons/bootstrap-icons.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/vendor/boxicons/css/boxicons.min.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/vendor/glightbox/css/glightbox.min.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/vendor/remixicon/remixicon.css')}}" rel="stylesheet">
+  <link href="{{asset('assets/vendor/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Arsha - v4.10.0
+  * Template URL: https://bootstrapmade.com/arsha-free-bootstrap-html-template-corporate/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+<body>
 <section class="vh-100">
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
@@ -12,14 +48,19 @@
 
           @csrf
           @if (Session::get('success'))
-          <div class="alert alert-success">
-            {{ Session::get('success' )}}
-          </div>
+            <div class="alert alert-success">
+              {{ Session::get('success')}}
+            </div>
           @endif
           @if (Session::get('fail'))
-          <div class="alert alert-fail">
-            {{ Session::get('fail' )}}
-          </div>
+            <div class="alert alert-fail">
+              {{ Session::get('fail')}}
+            </div>
+          @endif
+          @if (Session::get('notAllowed'))
+            <div class="alert alert-danger">
+              {{ Session::get('notAllowed')}}
+            </div>
           @endif
           @if ($errors->any())
           <div class="alert alert-danger">
@@ -56,6 +97,7 @@
               style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
             <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/register"
                 class="link-danger">Register</a></p>
+                <p><a href="/">back to home</a></p>
           </div>
 
         </form>
@@ -67,4 +109,3 @@
 
 </body>
 </html>
-@endsection
