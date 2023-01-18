@@ -48,7 +48,7 @@
     
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a class="nav-link scrollto" href="/admin">Only Admin</a></li>
+              <li><a class="nav-link scrollto" href="/admin">Admin</a></li>
               @if (Auth::check())
               <li><a class="getstarted scrollto" href="/logout">Logout</a></li>
               @else
@@ -70,8 +70,11 @@
           <h1>Better Solutions For Your Choice Book</h1>
           <h2>We can access book for online and free!</h2>
           <div class="d-flex justify-content-center justify-content-lg-start">
+            @if (Auth::check())
+            <a href="/logout" class="btn-get-started scrollto">Logout</a>
+            @else
             <a href="/register" class="btn-get-started scrollto">Register</a>
-            <a href="https://www.youtube.com/watch?v=jDDaplaOz7Q" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a>
+            @endif
           </div>
         </div>
         <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
@@ -159,16 +162,15 @@
         <div class="row">
 
           <div class="col-lg-7 d-flex flex-column justify-content-center align-items-stretch  order-2 order-lg-1">
-
+            @foreach($books as $book)
             <div class="content">
-              <h3><strong>Top #3</strong> Book of the Weeks</h3>
+              <h3><strong>1</strong> Bulan</h3>
             </div>
 
-            @foreach ($books as $book)
             <div class="accordion-list">
               <ul>
                 <li>
-                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>{{$book->id}}</span> {{$book->title}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>Synopsis</span><i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
                     <p>
                       {{$book->synopsis}}
@@ -180,13 +182,13 @@
             </div>
 
           </div>
-
-          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: url("https://cdn.gramedia.com/uploads/items/9786020332949_Bulan-New-Cover.jpg");' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+      
+          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: ""' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
+          @endforeach
         </div>
 
       </div>
     </section><!-- End Why Us Section -->
-    @endforeach
 
   </main><!-- End #main -->
 

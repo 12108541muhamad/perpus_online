@@ -27,7 +27,6 @@ Route::middleware('isGuest')->group(function () {
 // All Access
 Route::get('/', [WikbookController::class, 'index'])->name('index');
 Route::get('/error', [WikbookController::class, 'error'])->name('error');
-Route::post('/book', [WikbookController::class, 'create'])->name('book.createBook');
 Route::post('/store', [WikbookController::class, 'store'])->name('store');
 
 // logout
@@ -43,15 +42,19 @@ Route::middleware('isLogin')->group(function () {
 // Admin
 Route::middleware('isLogin', 'cekRole:admin')->group(function () {
     Route::get('/admin', [WikbookController::class, 'admin'])->name('admin');
+    Route::get('/createBook', [WikbookController::class, 'createBook'])->name('createBook');
     Route::get('/book', [WikbookController::class, 'book'])->name('book');
+    Route::post('/book', [WikbookController::class, 'create'])->name('book.createBook');
+    Route::get('/category', [WikbookController::class, 'categories'])->name('categories');
+    Route::post('/category', [WikbookController::class, 'categoriesCreate'])->name('categoriesCreate');
 });
 
 // Admin dan User
 Route::middleware('isLogin', 'cekRole:user,admin')->group(function () {
     // 
+    Route::get('/account', [WikbookController::class, 'users'])->name('users');
 });
 
 // User
 Route::middleware('isLogin', 'cekRole:user')->group(function () {
-    // 
 });

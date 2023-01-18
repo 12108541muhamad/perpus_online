@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\wikbook;
 use App\Models\User;
+use App\Models\category;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,12 +21,20 @@ class WikbookController extends Controller
         $books = Wikbook::all();
         return view('index', compact('books'));
     }
+
+    public function users()
+    {
+        $users = User::all();
+        return view('dashboard.users', compact('users'));
+    }
+
     public function admin()
     {
         $users = User::all();
         return view('dashboard.index', compact('users'));
     }
 
+// login
     public function login()
     {
         return view('dashboard.login');
@@ -47,6 +56,7 @@ class WikbookController extends Controller
         return redirect('/login')->with('fail', 'Gagal login, periksa dan coba lagi!');
     }
 
+    // register
     public function register()
     {
         return view('dashboard.register');
@@ -73,6 +83,8 @@ class WikbookController extends Controller
         return redirect('/login')->with('success', 'Berhasil menambahkan akun! silahkan login');
     }
 
+    // logout
+
     public function logout()
     {
         Auth::logout();
@@ -86,11 +98,7 @@ class WikbookController extends Controller
      */
 
 
-    public function book()
-    {
-        $books = Wikbook::all();
-        return view('dashboard.book', compact('books'));
-    }
+    
     public function create()
     {
         // 
@@ -102,6 +110,20 @@ class WikbookController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    
+    // book create
+    public function book()
+    {
+        $books = Wikbook::all();
+        return view('dashboard.book', compact('books'));
+    }
+
+    public function createBook()
+    {
+        $categories = category::all();
+        return view('dashboard.create_book', compact('categories'));
+    }
+
     public function store(Request $request)
     {
         $request->validate([
@@ -120,6 +142,25 @@ class WikbookController extends Controller
             'category_name' => $request->category_name,
         ]);
         return redirect('/book')->with('success', 'Berhasil menambahkan buku!'); 
+    }
+
+    // categories create
+    public function categories()
+    {
+        $categories = category::all();
+        return view('dashboard.categories', compact('categories'));
+    }
+
+    public function categoriesCreate(Request $request)
+    {
+        $request->validate([
+            'category' => 'required',
+        ]);
+
+        category::create([
+            'category' => $request->category,
+        ]);
+        return redirect('/category')->with('success', 'Berhasil menambahkan category!');
     }
 
     /**
@@ -165,10 +206,5 @@ class WikbookController extends Controller
     public function destroy(wikbook $wikbook)
     {
         // 
-    }
-
-    public function bookDestroy($id){
-        Todo::where('id', '=', $id)->delete();
-        return redirect()->route('dashboard.book')->with('success', 'Berhasil menghapus data!');
     }
 }
