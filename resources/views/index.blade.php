@@ -48,7 +48,7 @@
     
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a class="nav-link scrollto" href="/">Home</a></li>
+              <li><a class="nav-link scrollto" href="/admin">Only Admin</a></li>
               @if (Auth::check())
               <li><a class="getstarted scrollto" href="/logout">Logout</a></li>
               @else
@@ -164,33 +164,14 @@
               <h3><strong>Top #3</strong> Book of the Weeks</h3>
             </div>
 
+            @foreach ($books as $book)
             <div class="accordion-list">
               <ul>
                 <li>
-                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>01</span> Bulan <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                  <a data-bs-toggle="collapse" class="collapse" data-bs-target="#accordion-list-1"><span>{{$book->id}}</span> {{$book->title}} <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
                   <div id="accordion-list-1" class="collapse show" data-bs-parent=".accordion-list">
                     <p>
-                    Dalam novel Bulan petualangan antara Raib dan kedua kawannya masih berlanjut. Miss Selena akhirnya muncul di sekolah saat beberapa bulan setelah kejadian di klan Bulan. Miss Selena memberikan kabar menyenangkan bagi para murid yang mempunyai jiwa petualang, seperti Raib, Ali, dan Seli.
-
-Miss Selena bersama Av berniat untuk mengajak mereka berkunjung ke klan Matahari selama kurang lebih dua minggu. Av memiliki rencana hendak menemui ketua konsil klan Matahari. Diduga Konsil klan Matahari ingin menguasai klan matahari guna mencari federasi dalam melawan Tamus yang diperkirakan akan bebas dan juga membebaskan raja tanpa mahkota.
-                    </p>
-                  </div>
-                </li>
-
-                <li>
-                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-2" class="collapsed"><span>02</span> Feugiat scelerisque varius morbi enim nunc? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-2" class="collapse" data-bs-parent=".accordion-list">
-                    <p>
-                      Dolor sit amet consectetur adipiscing elit pellentesque habitant morbi. Id interdum velit laoreet id donec ultrices. Fringilla phasellus faucibus scelerisque eleifend donec pretium. Est pellentesque elit ullamcorper dignissim. Mauris ultrices eros in cursus turpis massa tincidunt dui.
-                    </p>
-                  </div>
-                </li>
-
-                <li>
-                  <a data-bs-toggle="collapse" data-bs-target="#accordion-list-3" class="collapsed"><span>03</span> Dolor sit amet consectetur adipiscing elit? <i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                  <div id="accordion-list-3" class="collapse" data-bs-parent=".accordion-list">
-                    <p>
-                      Eleifend mi in nulla posuere sollicitudin aliquam ultrices sagittis orci. Faucibus pulvinar elementum integer enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum tellus pellentesque eu tincidunt. Lectus urna duis convallis convallis tellus. Urna molestie at elementum eu facilisis sed odio morbi quis
+                      {{$book->synopsis}}
                     </p>
                   </div>
                 </li>
@@ -205,6 +186,7 @@ Miss Selena bersama Av berniat untuk mengajak mereka berkunjung ke klan Matahari
 
       </div>
     </section><!-- End Why Us Section -->
+    @endforeach
 
   </main><!-- End #main -->
 
