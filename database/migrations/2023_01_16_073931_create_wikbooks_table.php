@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('writter');
             $table->string('publisher');
             $table->string('isbn');
-            $table->longText('synopsis');
+            $table->longText('synopsis', 64);
             $table->string('cover_book');
             $table->string('category_name');
             $table->timestamps();

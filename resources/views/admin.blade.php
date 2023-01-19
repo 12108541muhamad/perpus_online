@@ -93,13 +93,13 @@
                             <a href="/admin"><i class="fas fa-home"></i><span>Dashboard</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="/account"><i class="fas fa-user"></i><span>Accounts</span></a>
+                            <a href="/admin/accounts"><i class="fas fa-user"></i><span>Accounts</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="/book"><i class="fas fa-book"></i><span>Books</span></a>
+                            <a href="/admin/book"><i class="fas fa-book"></i><span>Books</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="/category"><i class="fas fa-book"></i><span>Categories</span></a>
+                            <a href="/admin/category"><i class="fas fa-book"></i><span>Categories</span></a>
                         </li>
                         <hr style="border: 1px solid">
                         <li class="nav-item dropdown">

@@ -1,6 +1,16 @@
 @extends('admin')
 @section('content')
 
+@if (Session::get('successDelete'))
+    <div class="alert alert-success">
+      {{ Session::get('successDelete')}}
+    </div>
+@endif
+@if (Session::get('successUpdate'))
+    <div class="alert alert-success">
+      {{ Session::get('successUpdate')}}
+    </div>
+@endif
 <table id="example" class="table table-striped" style="width:100%; margin-top: 40px">
     <thead>
         <tr>
@@ -24,12 +34,7 @@
             <td>{{$user->no_hp}}</td>
             <td>{{$user->role}}</td>
             <td>{{$user->created_at->format('d/m/y')}}</td>
-            <td>
-                <form action="">
-                    <a href="" class="btn btn-dark">Delete</a>
-                    <a href="" class="btn btn-dark">Edit</a>
-                </form>
-            </td>
+            <td><a href="{{route('editUser', $user['id'])}}" class="btn btn-primary">Edit</a></td>
         </tr>
 </table>
 @endforeach

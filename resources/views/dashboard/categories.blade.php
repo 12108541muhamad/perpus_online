@@ -4,6 +4,16 @@
     <div class="input-form">
         <form action="{{route('categoriesCreate')}}" method="POST">
             @csrf
+            @if (Session::get('successDelete'))
+            <div class="alert alert-success">
+                {{ Session::get('successDelete')}}
+            </div>
+            @endif
+            @if (Session::get('successUpdate'))
+                <div class="alert alert-success">
+                {{ Session::get('successUpdate')}}
+                </div>
+            @endif
             <h3>Create Category</h3>
             <input type="text" name="category" placeholder="Enter Category Name" required>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -26,8 +36,8 @@
                 <td>{{$category->category}}</td>
                 <td>
                     <form action="">
+                        <a href="{{route('editCategory', $category['id'])}}" class="btn btn-dark">Edit</a>
                         <a href="" class="btn btn-dark">Delete</a>
-                        <a href="" class="btn btn-dark">Edit</a>
                     </form>
                 </td>
             </tr>

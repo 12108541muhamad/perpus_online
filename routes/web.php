@@ -27,34 +27,44 @@ Route::middleware('isGuest')->group(function () {
 // All Access
 Route::get('/', [WikbookController::class, 'index'])->name('index');
 Route::get('/error', [WikbookController::class, 'error'])->name('error');
-Route::post('/store', [WikbookController::class, 'store'])->name('store');
 
 // logout
 Route::get('/logout', [WikbookController::class, 'logout'])->name('logout');
 
 
-
+// Login
 Route::middleware('isLogin')->group(function () {
-    Route::delete('/delete/{id}', [WikbookController::class, 'destroyBook'])->name('delete');
+    // 
 });
 
 
 // Admin
 Route::middleware('isLogin', 'cekRole:admin')->group(function () {
     Route::get('/admin', [WikbookController::class, 'admin'])->name('admin');
+    // Book route
+    Route::get('/admin/book', [WikbookController::class, 'book'])->name('book');
     Route::get('/createBook', [WikbookController::class, 'createBook'])->name('createBook');
-    Route::get('/book', [WikbookController::class, 'book'])->name('book');
-    Route::post('/book', [WikbookController::class, 'create'])->name('book.createBook');
-    Route::get('/category', [WikbookController::class, 'categories'])->name('categories');
-    Route::post('/category', [WikbookController::class, 'categoriesCreate'])->name('categoriesCreate');
+    Route::post('/admin/book', [WikbookController::class, 'create'])->name('book.createBook');
+    Route::post('/store', [WikbookController::class, 'store'])->name('store');
+    Route::get('/admin/book/edit/{id}', [WikbookController::class, 'editBook'])->name('editBook'); 
+    Route::patch('/admin/book/edit/{id}', [WikbookController::class, 'updateBook'])->name('updateBook');
+    // Category route
+    Route::get('/admin/category', [WikbookController::class, 'categories'])->name('categories');
+    Route::post('/admin/category', [WikbookController::class, 'categoriesCreate'])->name('categoriesCreate');
+    Route::get('/admin/category/edit/{id}', [WikbookController::class, 'editCategory'])->name('editCategory'); 
+    Route::patch('/admin/category/edit/{id}', [WikbookController::class, 'updateCategory'])->name('updateCategory');
+    // User route
+    Route::get('/admin/users/edit/{id}', [WikbookController::class, 'editUser'])->name('editUser'); 
+    Route::patch('/admin/users/edit/{id}', [WikbookController::class, 'updateUser'])->name('updateUser');
+    Route::get('/admin/accounts', [WikbookController::class, 'users'])->name('accounts');
 });
 
 // Admin dan User
 Route::middleware('isLogin', 'cekRole:user,admin')->group(function () {
     // 
-    Route::get('/account', [WikbookController::class, 'users'])->name('users');
 });
 
 // User
 Route::middleware('isLogin', 'cekRole:user')->group(function () {
+    // 
 });

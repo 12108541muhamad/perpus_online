@@ -28,10 +28,8 @@
                 <td>{{$book->cover_book}}</td>
                 <td>{{$book->category_name}}</td>
                 <td>
-                    <form action="">
-                        <a href="" class="btn btn-dark">Delete</a>
-                        <a href="" class="btn btn-dark">Edit</a>
-                    </form>
+                    <a href="{{route('editBook', $book['id'])}}" class="btn btn-dark">Edit</a>
+                    <a href="" class="btn btn-dark">Delete</a>
                 </td>
             </tr>
         </tbody>

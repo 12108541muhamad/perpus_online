@@ -141,7 +141,7 @@ class WikbookController extends Controller
             'cover_book' => $request->cover_book,
             'category_name' => $request->category_name,
         ]);
-        return redirect('/book')->with('success', 'Berhasil menambahkan buku!'); 
+        return redirect('/admin/book')->with('success', 'Berhasil menambahkan buku!'); 
     }
 
     // categories create
@@ -160,7 +160,7 @@ class WikbookController extends Controller
         category::create([
             'category' => $request->category,
         ]);
-        return redirect('/category')->with('success', 'Berhasil menambahkan category!');
+        return redirect('/admin/category')->with('success', 'Berhasil menambahkan category!');
     }
 
     /**
@@ -180,9 +180,23 @@ class WikbookController extends Controller
      * @param  \App\Models\wikbook  $wikbook
      * @return \Illuminate\Http\Response
      */
-    public function edit(wikbook $wikbook)
+    public function editUser($id)
     {
-        //
+        $users = User::where('id', $id)->first();
+        return view('dashboard.edit_user', compact('users'));
+    }
+
+    public function editCategory($id)
+    {
+        $categories = category::where('id', $id)->first();
+        return view('dashboard.edit_category', compact('categories'));
+    }
+
+    public function editBook($id)
+    {
+        $categories = category::all();
+        $wikbooks = wikbook::where('id', $id)->first();
+        return view('dashboard.edit_book', compact('wikbooks', 'categories'));
     }
 
     /**
@@ -195,6 +209,61 @@ class WikbookController extends Controller
     public function update(Request $request, wikbook $wikbook)
     {
         //
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        // validasi
+        $request->validate([
+            'name' => 'min:3',
+            'address' => 'min:5',
+            'no_hp' => 'min:11',
+        ]);
+        // mencari baris data yang punya value column id sama dengan id yang dikirim ke route
+        User::where('id', $id)->update([
+            'name' => $request->name,
+            'address' => $request->address,
+            'no_hp' => $request->no_hp,
+            'role' => $request->role,
+        ]);
+        // kalau berhasil, arahkan ke halaman data dengan pemberitahuan berhasil
+        return redirect()->route('accounts')->with('successUpdate', 'Data berhasil diperbaharui!');
+    }
+
+    public function updateCategory(Request $request, $id)
+    {
+        // validasi
+        $request->validate([
+            'category' => 'min:3',
+        ]);
+        // mencari baris data yang punya value column id sama dengan id yang dikirim ke route
+        category::where('id', $id)->update([
+            'category' => $request->category
+        ]);
+        // kalau berhasil, arahkan ke halaman data dengan pemberitahuan berhasil
+        return redirect()->route('categories')->with('successUpdate', 'Data berhasil diperbaharui!');
+    }
+
+    public function updateBook(Request $request, $id)
+    {
+        // validasi
+        $request->validate([
+            'title' => 'required',
+            'isbn' => 'required',
+            'synopsis' => 'required|min:10',
+        ]);
+        // mencari baris data yang punya value column id sama dengan id yang dikirim ke route
+        wikbook::where('id', $id)->update([
+            'title' => $request->title,
+            'writter' => $request->writter,
+            'publisher' => $request->publisher,
+            'isbn' => $request->isbn,
+            'synopsis' => $request->synopsis,
+            'cover_book' => $request->cover_book,
+            'category_name' => $request->category_name,
+        ]);
+        // kalau berhasil, arahkan ke halaman data dengan pemberitahuan berhasil
+        return redirect()->route('book')->with('successUpdate', 'Data berhasil diperbaharui!');
     }
 
     /**
