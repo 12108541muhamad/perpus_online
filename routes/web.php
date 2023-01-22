@@ -40,23 +40,26 @@ Route::middleware('isLogin')->group(function () {
 
 // Admin
 Route::middleware('isLogin', 'cekRole:admin')->group(function () {
-    Route::get('/admin', [WikbookController::class, 'admin'])->name('admin');
+    Route::get('/dashboard', [WikbookController::class, 'dashboard'])->name('dashboard');
     // Book route
-    Route::get('/admin/book', [WikbookController::class, 'book'])->name('book');
+    Route::get('/dashboard/book', [WikbookController::class, 'book'])->name('book');
     Route::get('/createBook', [WikbookController::class, 'createBook'])->name('createBook');
-    Route::post('/admin/book', [WikbookController::class, 'create'])->name('book.createBook');
+    Route::post('/dashboard/book', [WikbookController::class, 'create'])->name('book.createBook');
     Route::post('/store', [WikbookController::class, 'store'])->name('store');
-    Route::get('/admin/book/edit/{id}', [WikbookController::class, 'editBook'])->name('editBook'); 
-    Route::patch('/admin/book/edit/{id}', [WikbookController::class, 'updateBook'])->name('updateBook');
+    Route::get('/dashboard/book/edit/{id}', [WikbookController::class, 'editBook'])->name('editBook'); 
+    Route::patch('/dashboard/book/edit/{id}', [WikbookController::class, 'updateBook'])->name('updateBook');
+    Route::delete('/dashboard/book/destroy/{id}', [WikbookController::class, 'destroyBook'])->name('destroyBook');
     // Category route
-    Route::get('/admin/category', [WikbookController::class, 'categories'])->name('categories');
-    Route::post('/admin/category', [WikbookController::class, 'categoriesCreate'])->name('categoriesCreate');
-    Route::get('/admin/category/edit/{id}', [WikbookController::class, 'editCategory'])->name('editCategory'); 
-    Route::patch('/admin/category/edit/{id}', [WikbookController::class, 'updateCategory'])->name('updateCategory');
+    Route::get('/dashboard/category', [WikbookController::class, 'categories'])->name('categories');
+    Route::post('/dashboard/category', [WikbookController::class, 'categoriesCreate'])->name('categoriesCreate');
+    Route::get('/dashboard/category/edit/{id}', [WikbookController::class, 'editCategory'])->name('editCategory'); 
+    Route::patch('/dashboard/category/edit/{id}', [WikbookController::class, 'updateCategory'])->name('updateCategory');
+    Route::delete('/dashboard/category/destroy/{id}', [WikbookController::class, 'destroyCategory'])->name('destroyCategory');
     // User route
-    Route::get('/admin/users/edit/{id}', [WikbookController::class, 'editUser'])->name('editUser'); 
-    Route::patch('/admin/users/edit/{id}', [WikbookController::class, 'updateUser'])->name('updateUser');
-    Route::get('/admin/accounts', [WikbookController::class, 'users'])->name('accounts');
+    Route::get('/dashboard/accounts/edit/{id}', [WikbookController::class, 'editUser'])->name('editUser'); 
+    Route::patch('/dashboard/accounts/edit/{id}', [WikbookController::class, 'updateUser'])->name('updateUser');
+    Route::get('/dashboard/accounts', [WikbookController::class, 'users'])->name('accounts');
+    Route::delete('/dashboard/user/destroy/{id}', [WikbookController::class, 'destroyUser'])->name('destroyUser');
 });
 
 // Admin dan User

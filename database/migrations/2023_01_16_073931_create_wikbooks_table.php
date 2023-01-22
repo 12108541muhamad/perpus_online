@@ -33,6 +33,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wikbooks');
+        if (Schema::hasColumn('wikbook', 'cover_book')){
+            $table->dropColum('cover_book');
+        }
     }
 };

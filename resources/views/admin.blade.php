@@ -90,23 +90,20 @@
                     </div>
                     <ul class="sidebar-menu">
                         <li class="nav-item dropdown">
-                            <a href="/admin"><i class="fas fa-home"></i><span>Dashboard</span></a>
+                            <a href="/dashboard"><i class="fas fa-home"></i><span>Dashboard</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="/admin/accounts"><i class="fas fa-user"></i><span>Accounts</span></a>
+                            <a href="/dashboard/accounts"><i class="fas fa-user"></i><span>Accounts</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="/admin/book"><i class="fas fa-book"></i><span>Books</span></a>
+                            <a href="/dashboard/book"><i class="fas fa-book"></i><span>Books</span></a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a href="/admin/category"><i class="fas fa-book"></i><span>Categories</span></a>
+                            <a href="/dashboard/category"><i class="fas fa-book"></i><span>Categories</span></a>
                         </li>
                         <hr style="border: 1px solid">
                         <li class="nav-item dropdown">
                             <a href="/"><i class="fas fa-home"></i><span>Home</span></a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="/logout"><i class="fas fa-user"></i><span>Logout</span></a>
                         </li>
                     </ul>
                 </aside>

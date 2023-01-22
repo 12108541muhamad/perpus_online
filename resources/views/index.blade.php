@@ -48,7 +48,7 @@
     
           <nav id="navbar" class="navbar">
             <ul>
-              <li><a class="nav-link scrollto" href="/admin">Admin</a></li>
+              <li><a class="nav-link scrollto" href="/dashboard">Dashboard</a></li>
               @if (Auth::check())
               <li><a class="getstarted scrollto" href="/logout">Logout</a></li>
               @else
@@ -177,14 +177,14 @@
                     </p>
                   </div>
                 </li>
-
+                
               </ul>
             </div>
-
+            <img class="col-lg-5 align-items-stretch order-1 order-lg-2 img" data-aos="zoom-in" data-aos-delay="150" src="{{url('image/'.$book->id)}}" alt="">
+            @endforeach
+            
           </div>
-      
-          <div class="col-lg-5 align-items-stretch order-1 order-lg-2 img" style='background-image: ""' data-aos="zoom-in" data-aos-delay="150">&nbsp;</div>
-          @endforeach
+          
         </div>
 
       </div>

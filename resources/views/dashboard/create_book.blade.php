@@ -4,20 +4,30 @@
     <div class="input-form">
         <form action="{{route('store')}}" method="POST">
             @csrf
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+              </ul>
+            </div>
+            @endif
             <div class="input-head"><h3>Create Book</h3></div>
             <div class="input-content">
-                <input type="text" name="title" style="width: 33%" placeholder="Enter Title" required>
-                <input type="text" name="writter" style="width: 33%" placeholder="Enter Writter" required>
-                <input type="text" name="publisher" style="width: 33.3%" placeholder="Enter Publisher" required><br><br>
-                <input type="text" name="isbn" style="width: 49.8%" placeholder="Enter ISBN" required>
-                <select style="width: 49.8%; height: 28px;" name="category_name" id="">
+                <input type="text" class="form-control" name="title" placeholder="Enter Title" required>
+                <input type="text" class="form-control" name="writter" placeholder="Enter Writter" required>
+                <input type="text" class="form-control" name="publisher" placeholder="Enter Publisher" required>
+                <input type="text" class="form-control" name="isbn" placeholder="Enter ISBN" required>
+                <textarea name="synopsis" class="form-control" cols="138" rows="10" placeholder="Enter Synopsis"></textarea>
+                <select class="form-select form-select-sm" name="category_name" id="">
+                    <option selected hidden disabled>Category Book</option>
                     @foreach ($categories as $category)
                     <option value="{{$category->category}}">{{$category->category}}</option>
                     @endforeach
-                </select><br><br>
-                <textarea name="synopsis" cols="138" rows="10" placeholder="Enter Synopsis"></textarea><br><br>
-                <input type="file" name="cover_book" required><br>
-                <label for="">Cover Book</label><br><br>
+                </select><br>
+                <label class="form-label" for="formFile">Cover Book</label>
+                <input class="form-control form-control-sm" type="file" id="formFile" name="cover_book" required><br>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>

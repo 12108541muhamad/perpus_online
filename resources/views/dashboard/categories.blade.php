@@ -35,9 +35,11 @@
                 <td>{{$category->id}}</td>
                 <td>{{$category->category}}</td>
                 <td>
-                    <form action="">
-                        <a href="{{route('editCategory', $category['id'])}}" class="btn btn-dark">Edit</a>
-                        <a href="" class="btn btn-dark">Delete</a>
+                    <a href="{{route('editCategory', $category['id'])}}" class="btn btn-primary">Edit</a>
+                    <form action="{{route('destroyCategory', $category->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-primary">Delete</button>
                     </form>
                 </td>
             </tr>

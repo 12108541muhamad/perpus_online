@@ -2,6 +2,7 @@
 @section('content')
 <div class="content" style="margin-top: 50px;">
     <a href="/createBook" class="btn btn-primary">Create</a>
+    <a href="/createBook" class="btn btn-primary">Download Excel</a>
     <table id="example" class="table table-striped" style="width:100%; margin-top: 20px">
         <thead>
             <tr>
@@ -28,8 +29,12 @@
                 <td>{{$book->cover_book}}</td>
                 <td>{{$book->category_name}}</td>
                 <td>
-                    <a href="{{route('editBook', $book['id'])}}" class="btn btn-dark">Edit</a>
-                    <a href="" class="btn btn-dark">Delete</a>
+                    <a href="{{route('editBook', $book['id'])}}" class="btn btn-primary">Edit</a>
+                    <form action="{{route('destroyBook', $book->id)}}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="btn btn-primary">Delete</button>
+                    </form>
                 </td>
             </tr>
         </tbody>

@@ -18,7 +18,7 @@ class WikbookController extends Controller
      */
     public function index()
     {
-        $books = Wikbook::all();
+        $books = wikbook::all();
         return view('index', compact('books'));
     }
 
@@ -28,10 +28,12 @@ class WikbookController extends Controller
         return view('dashboard.users', compact('users'));
     }
 
-    public function admin()
+    public function dashboard()
     {
+        $wikbooks = wikbook::all();
+        $categories = category::all();
         $users = User::all();
-        return view('dashboard.index', compact('users'));
+        return view('dashboard.index', compact('users', 'categories', 'wikbooks'));
     }
 
 // login
@@ -51,7 +53,7 @@ class WikbookController extends Controller
 
         $user = $request->only('email', 'password');
         if (Auth::attempt($user)) {
-            return redirect('/admin');
+            return redirect('/dashboard');
         }
         return redirect('/login')->with('fail', 'Gagal login, periksa dan coba lagi!');
     }
@@ -114,7 +116,7 @@ class WikbookController extends Controller
     // book create
     public function book()
     {
-        $books = Wikbook::all();
+        $books = wikbook::all();
         return view('dashboard.book', compact('books'));
     }
 
@@ -129,8 +131,23 @@ class WikbookController extends Controller
         $request->validate([
             'title' => 'required',
             'isbn' => 'required',
-            'synopsis' => 'required|min:10',
+            'synopsis' => 'required',
+            'cover_book' => 'required|image|mimes:jpg,png,jpeg,svg'
         ]);
+
+        $imageName = time().'.'.$request->image->extension();  
+        $request->image->move(public_path('assets/img'), $imageName);
+
+        //menyimpan path gambar ke database
+        $image = $request->file('cover_book');
+        $imageName= time().rand().'.'.$image->extension();
+        if(!file_exists(public_path('/assets/img/'.$image->getClientOriginalName()))){
+            $destinationPath = public_path('/assets/img/');
+            $image->move($destinationPath, $imageName);
+            $uploaded = $imageName;
+        }else{
+            $uploaded = $image->getClientOriginalName();
+        }
 
         wikbook::create([
             'title' => $request->title,
@@ -141,7 +158,8 @@ class WikbookController extends Controller
             'cover_book' => $request->cover_book,
             'category_name' => $request->category_name,
         ]);
-        return redirect('/admin/book')->with('success', 'Berhasil menambahkan buku!'); 
+        
+        return redirect('/dashboard/book')->with('success', 'Berhasil menambahkan buku!');
     }
 
     // categories create
@@ -160,7 +178,7 @@ class WikbookController extends Controller
         category::create([
             'category' => $request->category,
         ]);
-        return redirect('/admin/category')->with('success', 'Berhasil menambahkan category!');
+        return redirect('/dashboard/category')->with('success', 'Berhasil menambahkan category!');
     }
 
     /**
@@ -275,5 +293,23 @@ class WikbookController extends Controller
     public function destroy(wikbook $wikbook)
     {
         // 
+    }
+    
+    public function destroyBook($id)
+    {
+        wikbook::where('id', $id)->delete();
+        return redirect()->route('book')->with('successDelete', '"Berhasil menghapus data!');
+    }
+
+    public function destroyCategory($id)
+    {
+        category::where('id', $id)->delete();
+        return redirect()->route('categories')->with('successDelete', '"Berhasil menghapus data!');
+    }
+
+    public function destroyUser($id)
+    {
+        User::where('id', $id)->delete();
+        return redirect()->route('accounts')->with('successDelete', '"Berhasil menghapus data!');
     }
 }

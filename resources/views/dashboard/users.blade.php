@@ -34,10 +34,17 @@
             <td>{{$user->no_hp}}</td>
             <td>{{$user->role}}</td>
             <td>{{$user->created_at->format('d/m/y')}}</td>
-            <td><a href="{{route('editUser', $user['id'])}}" class="btn btn-primary">Edit</a></td>
+            <td>
+                <a href="{{route('editUser', $user['id'])}}" class="btn btn-primary">Edit</a>
+                <form action="{{route('destroyUser', $user->id)}}" method="post">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                </form>
+            </td>
+            @endforeach
         </tr>
-</table>
-@endforeach
+    </table>
 
 </body>
 </html>
